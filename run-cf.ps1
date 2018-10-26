@@ -18,7 +18,7 @@ aws s3 cp ./$stackName.json s3://$bucketName/ --quiet
 echo "Using most recent $stackName.$templateFormat file."
 
 # If the previous stack is still there, delete it before we continue.
-$stackExists=aws cloudformation list-stacks --query 'StackSummaries[?StackName==`$stackName`] | [?StackStatus!=`DELETE_COMPLETE`]' --output text
+$stackExists=aws cloudformation list-stacks --query 'StackSummaries[?StackName==`'$stackName'`] | [?StackStatus!=`DELETE_COMPLETE`]' --output text
 if ($stackExists) {
     echo "Deleting previous stack. Please wait..."
     aws cloudformation delete-stack --stack-name $stackName
