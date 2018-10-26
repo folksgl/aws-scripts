@@ -15,21 +15,21 @@ $capabilities="--capabilities your-capabilities" # The capabilities required for
 
 # Make sure the s3 bucket has an up-to-date copy of the CF template
 aws s3 cp ./$stackName.json s3://$bucketName/ --quiet
-echo "Using most recent $stackName.$templateFormat file."
+Write-Output "Using most recent $stackName.$templateFormat file."
 
 # If the previous stack is still there, delete it before we continue.
 $stackExists=aws cloudformation list-stacks --query 'StackSummaries[?StackName==`'$stackName'`] | [?StackStatus!=`DELETE_COMPLETE`]' --output text
 if ($stackExists) {
-    echo "Deleting previous stack. Please wait..."
+    Write-Output "Deleting previous stack. Please wait..."
     aws cloudformation delete-stack --stack-name $stackName
     aws cloudformation wait stack-delete-complete --stack-name $stackName
 }
 else {
-    echo "No previous stack found. Deletion not needed."
+    Write-Output "No previous stack found. Deletion not needed."
 }
 
 # Create the new stack and let the user know.
-echo "Creating the new stack..."
+Write-Output "Creating the new stack..."
 
 # ***This line may require modification depending on your specific stack.***
 aws cloudformation create-stack --stack-name $stackName --template-url https://s3.amazonaws.com/$bucketName/$stackName.$templateFormat --parameters $paramsFile $capabilities
