@@ -12,6 +12,7 @@ $bucketName="your-bucket"                        # Name of the bucket where the 
 $templateFormat="json"                           # Format the template is in (json or yaml)
 $paramFile="file://your-params.json"             # File containint the parameters for your script.
 $capabilities="--capabilities your-capabilities" # The capabilities required for stack creation.
+$rollbackPolicy="--disable-rollback"             # Useful for debugging but stacks will take longer to delete.
 
 # Make sure the s3 bucket has an up-to-date copy of the CF template
 aws s3 cp ./$stackName.json s3://$bucketName/ --quiet
