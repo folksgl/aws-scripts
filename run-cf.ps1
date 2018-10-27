@@ -33,6 +33,6 @@ else {
 Write-Output "Creating the new stack..."
 
 # ***This line may require modification depending on your specific stack.***
-aws cloudformation create-stack --stack-name $stackName --template-url https://s3.amazonaws.com/$bucketName/$stackName.$templateFormat --parameters $paramsFile $capabilities
+aws cloudformation create-stack --stack-name $stackName --template-url https://s3.amazonaws.com/$bucketName/$stackName.$templateFormat --parameters $paramFile $capabilities
 aws cloudformation wait create-stack-complete --stack-name $stackName
 
