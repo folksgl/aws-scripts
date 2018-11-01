@@ -8,10 +8,10 @@
 # This script assumes your template file is named <stack-name>.<template-format>
 
 $stackName="your-stack"                             # Name of the cloudformation stack to create.
-$stackTemplateFile="teamcity-setup.json"            # File containing the CF template
+$stackTemplateFile="your-template.type"             # File containing the CF template
 $bucketName="your-bucket"                           # Name of the s3 bucket where the template body is located.
-$parameters="--parameters file://your-params.json"  # File containing the parameters for your script.
-$capabilities="--capabilities your-capabilities"    # The capabilities required for stack creation.
+$parameters="--parameters=file://your-params.json"  # File containing the parameters for your script.
+$capabilities="--capabilities=your-capabilities"    # The capabilities required for stack creation.
 $rollbackPolicy="--disable-rollback"                # The rollback policy to use. Disabling causes longer stack deletion times.
 $s3Prefix="https://s3.amazonaws.com"                # The s3 endpoint for the deployment region.
 $nestedStackNames=@("nested-stack.json", "stack2.json") # The names of any nested stacks used in the main stack.
@@ -27,16 +27,9 @@ for ($i=0; $i -lt $nestedStackNames.length; $i++) {
     Write-Output "Using most recent $nestedStackNames[$i] file."
 }
 
-# If the previous stack is still there, delete it before we continue.
-$stackExists=aws cloudformation list-stacks --query 'StackSummaries[?StackName==`'$stackName'`] | [?StackStatus!=`DELETE_COMPLETE`]' --output text
-if ([string]::IsNullOrEmpty($stackExists)) {
-    Write-Output "Deleting previous stack. Please wait..."
-    aws cloudformation delete-stack --stack-name $stackName
-    aws cloudformation wait stack-delete-complete --stack-name $stackName
-}
-else {
-    Write-Output "No previous stack found. Deletion not needed."
-}
+Write-Output "Deleting previous stack. Please wait..."
+aws cloudformation delete-stack --stack-name $stackName
+aws cloudformation wait stack-delete-complete --stack-name $stackName
 
 # Create the new stack and let the user know.
 Write-Output "Creating the new stack..."
@@ -47,4 +40,3 @@ $templateURL="--template-url $s3Prefix/$bucketName/$stackTemplateFile"
 # ***This line may require modification depending on your specific stack.***
 aws cloudformation create-stack $rollbackPolicy --stack-name $stackName $templateURL $parameters $capabilities
 aws cloudformation wait create-stack-complete --stack-name $stackName
-
