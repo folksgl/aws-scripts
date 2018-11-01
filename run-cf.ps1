@@ -14,8 +14,8 @@ $parameters="--parameters file://your-params.json"  # File containing the parame
 $capabilities="--capabilities your-capabilities"    # The capabilities required for stack creation.
 $rollbackPolicy="--disable-rollback"                # The rollback policy to use. Disabling causes longer stack deletion times.
 $s3Prefix="https://s3.amazonaws.com"                # The s3 endpoint for the deployment region.
-$nestedStackNames=@("nested-stack.json")            # The names of any nested stacks used in the main stack.
-$nestedStackBuckets=@("nested-stack-bucket")        # Location of the nested stacks. Array location corresponds to stackNames array location.
+$nestedStackNames=@("nested-stack.json", "stack2.json") # The names of any nested stacks used in the main stack.
+$nestedStackBuckets=@("nested-stack-bucket", "bucket2") # Location of the nested stacks.
 
 # Make sure the s3 bucket has an up-to-date copy of the CF template.
 aws s3 cp ./$stackTemplateFile s3://$bucketName/ --quiet
