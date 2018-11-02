@@ -2,10 +2,9 @@
 #
 # This script automates the testing process for cloudformation scripts. I often find myself encountering 
 # errors from cloudformation and having to debug, and this script makes the process a little easier.
-# Please feel free to use and modify this script as necessary.
+# Please feel free to use and modify this script as necessary. If you add something cool, create a pull request!
 
 # Set reusable variables.
-# This script assumes your template file is named <stack-name>.<template-format>
 
 $stackName="your-stack"                             # Name of the cloudformation stack to create.
 $stackTemplateFile="your-template.type"             # File containing the CF template
