@@ -1,5 +1,7 @@
-# aws-scripts
-AWS cli scripts for testing and automation of AWS development.
+# AWS-Scripts
+
+## About
+aws-scripts is a collection of AWS cli scripts for testing and automation of AWS development.
 
 **You must install the aws cli tools for these scripts to execute**
 
