@@ -12,4 +12,5 @@ If you would like to make changes or submit completely new scripts (and I encour
 For information about how to install the AWS CLI tools on your platform, please refer to the [CLI Installation Page](https://aws.amazon.com/cli/)
 
 ## Descriptions
-  - **run-cf** - This script helps aid the development of cloudformation scripts from the command line by scripting the calls needed to set up and tear down stacks between changes.
+  - scripts** - Contains scripts for automating calls to AWS for various purposes.
+  - pre-built-cf-templates** - Contains pre-built Cloud Formation templates to base more advanced templates off of.
