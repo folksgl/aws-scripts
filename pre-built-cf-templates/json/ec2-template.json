@@ -217,5 +217,15 @@
                 ]
             }
         }
+    },
+
+    "Outputs": {
+        "InstanceID": {
+            "Description": "The instance ID of the created EC2 instance.",
+            "Value": { "Ref": "EC2Instance" },
+            "Export": {
+                "Name": { "Fn::Join" : [ ":", [ { "Ref" : "AWS::StackName" }, { "Ref": "AWS::Region" }, "InstanceID" ] ] }
+            }
+        }
     }
 }
