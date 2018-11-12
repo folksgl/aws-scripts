@@ -22,10 +22,11 @@ Write-Output "Using most recent $stackTemplateFile file."
 
 # Make sure nested stacks are up-to-date as well.
 for ($i=0; $i -lt $nestedStackNames.length; $i++) {
-    aws s3 cp $nestedStackNames[$i] s3://$nestedStackBuckets/ --quiet
+    aws s3 cp $nestedStackNames[$i] s3://$nestedStackBuckets[$i]/ --quiet
     Write-Output "Using most recent $nestedStackNames[$i] file."
 }
 
+# Delete the old stack.
 Write-Output "Deleting previous stack. Please wait..."
 aws cloudformation delete-stack --stack-name $stackName
 aws cloudformation wait stack-delete-complete --stack-name $stackName
