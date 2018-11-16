@@ -25,7 +25,7 @@ echo "Using most recent $stackTemplateFile file."
 # Make sure nested stacks are up-to-date as well.
 for (( i=0; i<${#nestedStackNames[@]}; i++ ));
 do
-    aws s3 cp ${nestedStackNames[$i]} s3://${nestedStackBuckets[$i]}/ --quiet
+    aws s3 cp "${nestedStackNames[$i]}" s3://"${nestedStackBuckets[$i]}"/ --quiet
     echo "Using most recent ${nestedStackNames[$i]} file."
 done
 
@@ -34,13 +34,13 @@ echo "Deleting previous stack. Please wait..."
 aws cloudformation delete-stack --stack-name $stackName
 aws cloudformation wait stack-delete-complete --stack-name $stackName
 
-# Create the new stack. 
+# Create the new stack.  
 echo "Creating the new stack..."
 
 # Build the templateURL from supplied parameters to clean up call to stack-create.
 templateURL="--template-url $s3Prefix/$bucketName/$stackTemplateFile"
 
 # ***This line may require modification depending on your specific stack.***
-aws cloudformation create-stack $rollbackPolicy --stack-name $stackName $templateURL $parameters $capabilities
+aws cloudformation create-stack $rollbackPolicy --stack-name $stackName "$templateURL" $parameters $capabilities
 aws cloudformation wait create-stack-complete --stack-name $stackName
 
